@@ -1,7 +1,23 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const path = require('path');
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import fs from 'fs';
 
-module.exports = {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+let views = fs.readdirSync('./src/views');
+let htmlPlugins = [];
+for(let view of views){
+    htmlPlugins.push(new HtmlWebpackPlugin({
+        filename: path.parse(view).name + '.html',
+        template: './src/views/' + view
+    }));
+}
+
+
+export default {
     entry: './src/index.js',
     output: {
         filename: 'main.js',
@@ -18,13 +34,16 @@ module.exports = {
         rules: [
             {
                 test: /\.css$/i,
-                use: ['MiniCssExtractPlugin.loader','css-loader']
+                use: [MiniCssExtractPlugin.loader,'css-loader']
+            },
+            {
+                test: /\.nunjucks$/i,
+                use: ['simple-nunjucks-loader']
             }
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            template: './src/index.html'
-        })
+       ...htmlPlugins,
+        new MiniCssExtractPlugin()
     ],
 }
