@@ -1,3 +1,3 @@
 module.exports = () => {
-    console.log('CommonJs module!');
+    console.log('CommonJs module!')
 }

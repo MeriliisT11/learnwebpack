@@ -3,19 +3,12 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
+import glob from 'glob';
+import { PurgeCSSPlugin } from 'purgecss-webpack-plugin';
+import { VueLoaderPlugin } from 'vue-loader';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-let views = fs.readdirSync('./src/views');
-let htmlPlugins = [];
-for(let view of views){
-    htmlPlugins.push(new HtmlWebpackPlugin({
-        filename: path.parse(view).name + '.html',
-        template: './src/views/' + view
-    }));
-}
-
 
 export default {
     entry: './src/index.js',
@@ -37,13 +30,27 @@ export default {
                 use: [MiniCssExtractPlugin.loader,'css-loader']
             },
             {
+                test: /\.scss$/i,
+                use: [MiniCssExtractPlugin.loader,'css-loader', 'sass-loader']
+            },
+            {
                 test: /\.nunjucks$/i,
                 use: ['simple-nunjucks-loader']
+            },
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader'
             }
         ]
     },
     plugins: [
-       ...htmlPlugins,
-        new MiniCssExtractPlugin()
+       new HtmlWebpackPlugin({
+        template:'./src/index.html'
+       }),
+        new MiniCssExtractPlugin(),
+       // new PurgeCSSPlugin ({
+       //   paths: glob.sync('src/views/**/*', { nodir: true }),
+       // }),
+        new VueLoaderPlugin()
     ],
 }
