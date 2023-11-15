@@ -30,6 +30,7 @@
     "sass": "^1.69.5",
     "sass-loader": "^13.3.2",
     "simple-nunjucks-loader": "^3.2.0",
-    "vue": "^3.3.8"
+    "vue": "^3.3.8",
+    "vue-router": "^4.2.5"
   }
 }
