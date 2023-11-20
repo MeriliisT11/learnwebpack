@@ -7,10 +7,12 @@ import * as VueRouter from 'vue-router';
 import App from './App.vue';
 import ToDo from './pages/ToDo.vue';
 import Home from './pages/Home.vue';
+import Clicker from './pages/Clicker.vue';
 
 const routes = [
     {path: '/', component: Home},
-    {path: '/todo', component: ToDo}
+    {path: '/todo', component: ToDo},
+    {path: '/Clicker', component: Clicker},
 ];
 
 const router = VueRouter.createRouter({

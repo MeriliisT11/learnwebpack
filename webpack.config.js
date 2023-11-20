@@ -7,6 +7,7 @@ import glob from 'glob';
 import { PurgeCSSPlugin } from 'purgecss-webpack-plugin';
 import { VueLoaderPlugin } from 'vue-loader';
 
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -20,6 +21,8 @@ export default {
         static: {
             directory: path.resolve(__dirname, 'public')
         },
+        historyApiFallback: true,
+        open: true,
         port: 9000,
         compress: true,
     },
@@ -30,7 +33,7 @@ export default {
                 use: [MiniCssExtractPlugin.loader,'css-loader']
             },
             {
-                test: /\.scss$/i,
+                test: /\.s[ac]ss$/i,
                 use: [MiniCssExtractPlugin.loader,'css-loader', 'sass-loader']
             },
             {
@@ -44,13 +47,17 @@ export default {
         ]
     },
     plugins: [
-       new HtmlWebpackPlugin({
-        template:'./src/index.html'
-       }),
+        new HtmlWebpackPlugin({
+            template: './src/index.html'
+        }),
+        new HtmlWebpackPlugin({
+            filename: '200.html',
+            template: './src/index.html'
+        }),
         new MiniCssExtractPlugin(),
-       // new PurgeCSSPlugin ({
-       //   paths: glob.sync('src/views/**/*', { nodir: true }),
-       // }),
+        // new PurgeCSSPlugin({
+        //     paths: glob.sync(`src/views/**/*`, { nodir: true }),
+        // }),
         new VueLoaderPlugin()
     ],
 }
