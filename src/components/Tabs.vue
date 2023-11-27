@@ -9,6 +9,9 @@
   <li class="nav-item">
     <router-link class="nav-link" to="/clicker" activeClass="active">Clicker</router-link>
   </li>
+  <li class="nav-item">
+    <router-link class="nav-link" to="/gmaps" activeClass="active">Gmaps</router-link>
+  </li>
 </ul>
 </template>
 

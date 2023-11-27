@@ -13,7 +13,11 @@
         <div class="card text-center">
           <div class="card-body">
             <button class="btn btn-warning btn-golden" @click="goldenButtonClick">
-              Golden Button
+              Buy Golden Button for 5 cursors
+            </button>
+            <p class="mt-2">Golden Button Clicks: {{ goldenButtonCount }}</p>
+            <button class="btn btn-success mt-2" @click="buyFreeCookies" :disabled="goldenButtonCount < 5">
+              Buy 10000 Free Clicks for 5 Golden Buttons
             </button>
           </div>
         </div>
@@ -55,12 +59,13 @@ export default {
     return {
       cookies: 0,
       upgrades: {
-        cursor: { price: 10, cps: 0.1, count: 0 },
-        grandma: { price: 100, cps: 1, count: 0 },
-        farm: { price: 1000, cps: 10, count: 0 },
-        factory: { price: 10000, cps: 100, count: 0 },
-        temple: { price: 100000, cps: 1000, count: 0 },
+        cursor: { price: 10, cps: 10, count: 0 },
+        grandma: { price: 100, cps: 100, count: 0 },
+        farm: { price: 1000, cps: 1000, count: 0 },
+        factory: { price: 10000, cps: 10000, count: 0 },
+        temple: { price: 100000, cps: 100000, count: 0 },
       },
+      goldenButtonCount: 0,
     };
   },
   methods: {
@@ -78,6 +83,24 @@ export default {
       for (const upgrade in this.upgrades) {
         const cps = this.upgrades[upgrade].cps * this.upgrades[upgrade].count;
         this.cookies += cps;
+      }
+    },
+    goldenButtonClick() {
+      if (this.upgrades.cursor.count >= 5) {
+        this.upgrades.cursor.count -= 5;
+        this.goldenButtonCount++;
+        // Perform any other actions related to the golden button click
+      } else {
+        alert("Not enough cursors to click the Golden Button!");
+      }
+    },
+    buyFreeCookies() {
+      if (this.goldenButtonCount >= 5) {
+        this.goldenButtonCount -= 5;
+        this.cookies += 10000; // Adjust as needed
+        // Perform any other actions related to buying free cookies
+      } else {
+        alert("You need at least 5 Golden Buttons to buy 1000 Free Cookie Clicks!");
       }
     },
   },
