@@ -60,10 +60,10 @@ export default {
       cookies: 0,
       upgrades: {
         cursor: { price: 10, cps: 10, count: 0 },
-        grandma: { price: 100, cps: 100, count: 0 },
-        farm: { price: 1000, cps: 1000, count: 0 },
-        factory: { price: 10000, cps: 10000, count: 0 },
-        temple: { price: 100000, cps: 100000, count: 0 },
+        grandma: { price: 100, cps: 50, count: 0 },
+        farm: { price: 1000, cps: 100, count: 0 },
+        factory: { price: 10000, cps: 500, count: 0 },
+        temple: { price: 100000, cps: 1000, count: 0 },
       },
       goldenButtonCount: 0,
     };
